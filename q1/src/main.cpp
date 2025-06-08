@@ -62,7 +62,7 @@ const char* mqttUser     = "gs2025";
 const char* mqttPassword = "q1w2e3r4";
 
 // Tópico MQTT
-#define TOPICO_PUBLISH  "2TDS/esp32/gs2025/"
+#define TOPICO_PUBLISH  "2TDS/esp32/gs2025"
 
 //----------------------------------------------------------
 // Variáveis globais
