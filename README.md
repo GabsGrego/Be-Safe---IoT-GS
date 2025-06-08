@@ -1,59 +1,49 @@
-# Projeto ESP32 MQTT - Monitoramento de Temperatura e Umidade
+# 🌧️ Be Safe - Sistema de Monitoramento Climático com ESP32 + Node-RED
 
-> **🌟 PROJETO BASE - GLOBAL SOLUTION 2025**
-> 
-> Este projeto serve como base para o desenvolvimento da Global Solution 2025.
-> Os alunos devem utilizar esta estrutura como ponto de partida para implementar
-> suas soluções inovadoras de IoT com ESP32.
+Este projeto foi desenvolvido como parte do Global Solution 2025 da FIAP, com o objetivo de propor uma solução tecnológica para um dos desafios da atualidade: desastres naturais causados pelas mudanças climáticas.
 
-## ⚠️ ATENÇÃO - IMPORTANTE PARA LABORATÓRIOS FIAP
+Diante do aumento da frequência e intensidade de eventos como enchentes, tempestades e alagamentos, sentimos a necessidade de criar como solução um monitoramento climático em tempo real, que possa ajudar comunidades a se prepararem melhor e a agirem com rapidez diante desses riscos.
 
-> Para o correto funcionamento do projeto nos laboratórios da FIAP, é necessário:
-> 
-> 1. Solicitar ao professor a liberação das portas no firewall:
->    - Porta 1883 (MQTT Broker)
->    - Porta 1880 (Node-RED Dashboard)
-> 2. Sem essa liberação, não será possível:
->    - Conectar ao broker MQTT
->    - Visualizar os dados no dashboard Node-RED
->    - Testar a comunicação do projeto
+Nosso projeto integra um **ESP32** com sensores e atuadores para monitorar **temperatura**, **umidade** e **nível de precipitação**, enviando os dados em tempo real via **MQTT** para um painel visual em **Node-RED**. 
+O sistema também emite **alertas visuais e sonoros** caso detecte a possibilidade de chuvas fortes e enchentes.
 
-## 📝 Descrição
+---
 
-O projeto implementa um sistema IoT completo que:
+## 📦 Componentes Utilizados
 
-**Conectividade**
-- Conecta um ESP32 a uma rede Wi-Fi
-- Estabelece comunicação com broker MQTT
-- Gerencia reconexões automáticas
+### 🧠 Microcontrolador
+- ESP32 DOIT DEVKIT V1
 
-**Sensores e Dados**
-- Leitura de temperatura e umidade (DHT22)
-- Leitura de potenciômetro (controle analógico)
-- Envio periódico de dados (10 segundos)
-- Feedback visual por LED
+### 🌡️ Sensores
+- DHT22 (Temperatura e Umidade)
+- Sensor de Precipitação
 
-**Identificação**
-- ID do grupo
-- ID do módulo
-- Endereço IP
-- Endereço MAC
+### 🔊 Atuadores
+- LED (indicação visual)
+- Buzzer (alerta de chuva forte e enchente)
 
-## Recursos do Servidor
+---
 
-O projeto utiliza um servidor dedicado com:
+## 📡 Funcionalidade
 
-- **Broker MQTT**: 
-  - Endereço: `172.208.54.189`
-  - Porta: `1883`
-  - Usuário e senha já configurados
+O projeto implementa um sistema IoT completo onde:
+- Conecta um ESP32 a uma rede Wi-Fi e estabelece comunicação com broker MQTT.
+- O ESP32 lê os sensores e envia um **JSON via MQTT** com os dados para o Node-RED.
+- O Node-RED recebe, armazena, exibe em **dashboards** e **aciona alertas visuais e sonoro** se necessário.
+- Os dados armazenados fornecem um histórico e a visualização de tendências.
 
-- **Node-RED**: 
-  - Interface visual em `172.208.54.189:1880`
-  - Dashboard para monitoramento em tempo real
-  - Gráficos e indicadores personalizados
+---
 
-## ⚙️ Pré-requisitos
+## 💡 Por que essa solução?
+Em cenários de risco climático, cada minuto conta. Monitoramentos centralizados nem sempre conseguem atender áreas afastadas ou com infraestrutura limitada. 
+Por isso, propusemos um sistema que pode ser:
+
+- Instaurado em comunidades locais;
+- Integrado a planos de defesa civil;
+- Usado por moradores, ONGs ou prefeituras para criar alertas preventivos e acompanhar a evolução do clima com base em dados reais, coletados diretamente no local.
+
+
+## ⚙️ Pré-requisitos para uso
 
 1. **Software**
    - Visual Studio Code
@@ -65,20 +55,23 @@ O projeto utiliza um servidor dedicado com:
    - Licença Wokwi Simulator
    - Extensão Wokwi no VS Code
 
-## Instalação e Configuração
+
+## 🛠️ Como Usar
+
+### Instalação e Configuração
 
 ### 1. Clone o Repositório
 
 ```bash
-git clone https://github.com/prof-atritiack/2TDS-GS2025.git
-cd 2TDS-GS2025
+git clone https://github.com/GabsGrego/Be-Safe---IoT-GS.git
+cd BE SAFE - IOT GS
 ```
 
 ### 2. Configuração do VS Code
 
 1. Abra o VS Code
 2. File > Open Folder
-3. Selecione a pasta `2TDS-GS2025`
+3. Selecione a pasta `BE SAFE - IOT GS`
 4. Aguarde o PlatformIO inicializar
 
 ### 3. Configuração do Wokwi
@@ -97,21 +90,14 @@ O projeto utiliza as seguintes bibliotecas:
 
 > ⚠️ **Importante**: Aguarde a instalação completa das dependências antes de compilar!
 
-### 5. Configuração do Código
-
-Em `q1/src/main.cpp`, configure:
-```cpp
-const char* ID        = "ID_do_Grupo";     // Seu identificador
-const char* moduleID  = "Meu_ESP32";       // Nome do seu ESP32
-```
-
 ## Estrutura do Projeto
 
 ```
 2TDS-GS2025/
 ├── q1/
-│   └── src/
-│       └── main.cpp          # Código principal
+│   ├── src/
+│   |    └── main.cpp         # Código principal
+|   └── diagram.json          # Diagrama do sistema IoT
 ├── platformio.ini            # Configuração
 └── README.md                 # Documentação
 ```
@@ -126,12 +112,12 @@ O JSON enviado segue este formato:
     "IP": "xxx.xxx.xxx.xxx",      // IP local
     "MAC": "XX:XX:XX:XX:XX:XX",   // Endereço MAC
     "Temperatura": xx.xx,         // Em graus Celsius
-    "Umidade": xx.xx,            // Em porcentagem
-    "Potenciometro": xxxx        // Valor 0-4095
+    "Umidade": xx.xx,             // Em porcentagem
+    "Precipitação": xxxx          // Em milimetros
 }
 ```
 
-## Monitor Serial
+### Monitor Serial
 
 O monitor serial (115200 baud rate) exibe informações detalhadas:
 
@@ -148,13 +134,13 @@ Conectado ao Broker!
 ### Envio de Dados
 ```
 {
-    "ID": "2TDS",
-    "Sensor": "ESP32_Lab1",
-    "IP": "192.168.1.100",
-    "MAC": "A4:CF:12:BF:7A:E5",
-    "Temperatura": 25.40,
-    "Umidade": 63.20,
-    "Potenciometro": 2048
+  "ID": "BeSafe_553766",
+  "Sensor": "Modulo_de_Monitoramento_ESP32",
+  "IP": "10.13.37.2",
+  "MAC": "24:0A:C4:00:01:10",
+  "Temperatura": 24,
+  "Umidade": 40,
+  "Precipitacao": 87.45
 }
 Mensagem publicada com sucesso!
 ```
@@ -168,131 +154,48 @@ Falha na conexão. Estado: -2   // Problema MQTT
 
 O LED onboard (GPIO2) pisca após cada envio bem-sucedido!
 
+O LED conectado a placa acende em caso de chuva forte!
+
+O Buzzer irá tocar em caso de possibilidade de enchente!
+
 ## Visualização dos Dados
 
 1. **Node-RED**
-   - Acesse: `172.208.54.189:1880`
-   - Visualização em tempo real
-   - Gráficos interativos
+   - Inicialize no cmd para rodar localmente: cmd > `node-red`
+   - Acesse: `htt´://localhost:1880`
 
-2. **Monitor Serial**
-   - Debug local
-   - Verificação de erros
-   - Teste de funcionamento
+2. Importar o Fluxo no Node-RED
+   - Vá até a pasta node-red/
+   - Copie o conteúdo de flow.json
+   - No Node-RED clique no menu > Import > Cole o conteúdo
 
-## Personalização do Node-RED ⚡
+3. Clique em Implementar
 
-O Node-RED é uma ferramenta poderosa que permite expandir significativamente as capacidades do seu projeto. Recomenda-se fortemente que você desenvolva seus próprios fluxos para atender às necessidades específicas do seu projeto.
+![image](https://github.com/user-attachments/assets/67187248-af19-489c-a0c5-fbd7fe249d3e)
 
-### Possibilidades de Expansão
+4. Visualização dos dados chegando
 
-1. **Integração com APIs Externas**
-   - Conexão com serviços de previsão do tempo
-   - Integração com APIs de notificação
-   - Webhooks para sistemas externos
-   - Automação com serviços em nuvem
+![image](https://github.com/user-attachments/assets/3dfc8ffe-9a46-4f81-81a9-4edfede0c954)
 
-2. **Banco de Dados**
-   - Armazenamento histórico de leituras
-   - Análise de tendências
-   - Backup de dados
-   - Consultas personalizadas
-   
-3. **Dashboards Personalizados**
-   - Gráficos em tempo real
-   - Indicadores personalizados
-   - Painéis de controle interativos
-   - Visualizações específicas para seu caso de uso
+5. Visualização em tempo real dos gráficos
 
-4. **Lógica de Negócio**
-   - Processamento de dados
-   - Filtros e transformações
-   - Regras de negócio
-   - Alertas condicionais
+![image](https://github.com/user-attachments/assets/b841b3f1-8293-4d05-a488-e436ed80cbf6)
 
-### Dicas de Implementação
+---
 
-- Comece com fluxos simples e incremente gradualmente
-- Use nodes de debug para verificar o processamento dos dados
-- Documente seus fluxos com nodes de comentário
-- Faça backup regular dos seus fluxos
-- Considere implementar autenticação para seus endpoints
+## Expansão Futura
 
-### Recursos para Node-RED
+- **Integração com o aplicativo Be Safe**
 
-- [Node-RED Library](https://flows.nodered.org/)
-- [Documentação Oficial](https://nodered.org/docs/)
-- [Guia de Boas Práticas](https://nodered.org/docs/user-guide/writing-flows)
 
-## Créditos
+##💡 Créditos
 
-Este projeto é baseado no trabalho original do Professor Arnaldo Viana:
-[Repositório Original](https://github.com/arnaldojr/iot-esp32-wokwi-vscode.git)
+Desenvolvedores do Projeto:
+- Gabriel Grego
+- Kayque Ferreira
+- André Alves
 
-## Suporte
+Professor Orientador: André Tritiack
 
-Precisa de ajuda?
-1. Verifique as issues no repositório
-2. Consulte a documentação das bibliotecas
-3. Contate o professor ou monitores
+FIAP - Global Solutions 2025
 
-## Referências e Recursos
-
-### Documentação Técnica
-- [Documentação ESP32](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/)
-- [Biblioteca PubSubClient](https://pubsubclient.knolleary.net/)
-- [ArduinoJson](https://arduinojson.org/)
-- [Wokwi](https://docs.wokwi.com/)
-
-### Desenvolvimento Assistido por IA
-Este projeto foi desenvolvido com auxílio de IA Generativa:
-- **Modelo**: Claude 3.5 Sonnet
-- **Plataforma**: Cursor IDE
-- **Aplicação**: 
-  - Geração e revisão de código
-  - Documentação técnica
-  - Debugging assistido
-  - Otimização de código
-
-### Recursos Educacionais
-- [ESP32 - Primeiros Passos](https://randomnerdtutorials.com/getting-started-with-esp32/)
-- [MQTT Essentials](https://www.hivemq.com/mqtt-essentials/)
-
-## Uso com Placas Físicas
-
-Para grupos que optarem por usar uma placa ESP32 física:
-
-1. **Arquivo para Arduino**
-   - Use o arquivo `q1/esp32_mqtt_dht22.ino`
-   - Contém o mesmo código e funcionalidades do projeto
-
-2. **Bibliotecas Necessárias**
-   - `PubSubClient`
-   - `ArduinoJson`
-   - `DHT sensor library`
-   - `Adafruit Unified Sensor`
-
-3. **Configuração do Código**
-   - Configure suas credenciais Wi-Fi:
-     ```cpp
-     const char* ssid = "SUA_REDE_WIFI";
-     const char* password = "SUA_SENHA_WIFI";
-     ```
-   - Ajuste os identificadores:
-     ```cpp
-     const char* ID = "ID_do_Grupo";
-     const char* moduleID = "Meu_ESP32";
-     ```
-
-4. **Conexões Físicas**
-   - DHT22:
-     - VCC → 3.3V
-     - GND → GND
-     - DATA → GPIO12
-   - Potenciômetro:
-     - VCC → 3.3V
-     - GND → GND
-     - SIGNAL → GPIO34
-   - LED onboard está no GPIO2
-
-> ⚠️ **Importante**: Verifique todas as conexões antes de energizar a placa e use resistores pull-up quando necessário. 
