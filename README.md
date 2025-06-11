@@ -42,6 +42,11 @@ Por isso, propusemos um sistema que pode ser:
 - Integrado a planos de defesa civil;
 - Usado por moradores, ONGs ou prefeituras para criar alertas preventivos e acompanhar a evolução do clima com base em dados reais, coletados diretamente no local.
 
+---
+
+### 🎥 Link do video de demonstração do app no Youtube
+
+      https://youtu.be/CXInRf-vhz0
 
 ## ⚙️ Pré-requisitos para uso
 
