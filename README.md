@@ -46,7 +46,7 @@ Por isso, propusemos um sistema que pode ser:
 
 ### 🎥 Link do video de demonstração do app no Youtube
 
-      https://youtu.be/CXInRf-vhz0
+      https://youtu.be/jAqbv38kWcw
 
 ## ⚙️ Pré-requisitos para uso
 
